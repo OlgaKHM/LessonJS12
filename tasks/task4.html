@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@800&family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>Задача 4</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <h2>Задача 4.</h2>
+      <p>
+        Для розглянутих методів сортування спробувати вивести етапи сортування
+        шляхом виведення відповідних таблиць за зразком. Тобто кожного разу
+        після обміну елементів вивести поточний стан масиву на екран.
+      </p>
+    </div>
+
+    <script>
+      function getRandomNumber(maxNumber) {
+        let randomItem = Math.floor(Math.random() * maxNumber + 1)
+        return randomItem
+      }
+      function getRandomArr(maxNumber, amountOfNumber) {
+        let randomArr = []
+        for (let i = 0; i < amountOfNumber; i++) {
+          let randomNumber = getRandomNumber(maxNumber)
+          randomArr.push(randomNumber)
+        }
+        return randomArr
+      }
+      const maxNumber = parseInt(
+        prompt("Введіть максимальне число в масиві", "10")
+      )
+      const amountOfNumber = 30
+      const randomArr = getRandomArr(maxNumber, amountOfNumber)
+
+      document.write(`<h3>${randomArr}<br>сортування бульбашкою :</h3>`)
+      let bubbleSortArr = JSON.parse(JSON.stringify(randomArr))
+      function bubbleSort(bubbleSortArr) {
+        let changed
+        do {
+          changed = false
+          for (let i = 1; i < bubbleSortArr.length; i++) {
+            if (bubbleSortArr[i - 1] > bubbleSortArr[i]) {
+              let temp = bubbleSortArr[i - 1]
+              bubbleSortArr[i - 1] = bubbleSortArr[i]
+              bubbleSortArr[i] = temp
+              changed = true
+              document.write(`[${bubbleSortArr}]<br>`)
+            }
+          }
+        } while (changed)
+        return bubbleSortArr
+      }
+      const bubble = bubbleSort(bubbleSortArr)
+
+      document.write(`<h3>${randomArr}<br>сортування змішуванням :</h3>`)
+      let offsetSortArr = JSON.parse(JSON.stringify(randomArr))
+      function offsetSort(offsetSortArr) {
+        let leftIndex = 0
+        let rightIndex = offsetSortArr.length - 1
+        while (leftIndex < rightIndex) {
+          for (let i = leftIndex; i < rightIndex; i++) {
+            let temp
+            if (offsetSortArr[i] > offsetSortArr[i + 1]) {
+              temp = offsetSortArr[i]
+              offsetSortArr[i] = offsetSortArr[i + 1]
+              offsetSortArr[i + 1] = temp
+              document.write(`[${offsetSortArr}]<br>`)
+            }
+          }
+          rightIndex--
+          for (let i = rightIndex; i > leftIndex; i--) {
+            let temp
+            if (offsetSortArr[i] < offsetSortArr[i - 1]) {
+              temp = offsetSortArr[i]
+              offsetSortArr[i] = offsetSortArr[i - 1]
+              offsetSortArr[i - 1] = temp
+              document.write(`[${offsetSortArr}]<br>`)
+            }
+          }
+          leftIndex++
+        }
+        return offsetSortArr
+      }
+      let offset = offsetSort(offsetSortArr)
+      document.write(`<h3>${randomArr}<br>сортування включеннями :</h3>`)
+      let iclusionSortArr = JSON.parse(JSON.stringify(randomArr))
+      function sortnIclusion(iclusionSortArr) {
+        for (let k = 1; k < iclusionSortArr.length; k++) {
+          let currentElement = iclusionSortArr[k]
+          let i = k - 1
+          while (i >= 0 && iclusionSortArr[i] > currentElement) {
+            iclusionSortArr[i + 1] = iclusionSortArr[i]
+            i = i - 1
+            document.write(`[${iclusionSortArr}]<br>`)
+          }
+          iclusionSortArr[i + 1] = currentElement
+        }
+        return iclusionSortArr
+      }
+      let iclusion = sortnIclusion(iclusionSortArr)
+    </script>
+  </body>
+</html>
